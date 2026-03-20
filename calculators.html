@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Калькуляторы Умело: быстрая смета и калькулятор рисования с расчётом стоимости на Яндекс Карте."
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Калькуляторы — Умело</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="site-shell">
+      <header class="header" id="top">
+        <div class="container header__inner">
+          <a class="brand" href="index.html#hero" aria-label="Умело — на главную">
+            <span class="brand__mark">У</span>
+            <span class="brand__text">
+              <strong>Умело</strong>
+              <small>архитектурно-строительное бюро</small>
+            </span>
+          </a>
+
+          <nav class="nav" aria-label="Основная навигация">
+            <a href="index.html#about">О бюро</a>
+            <a href="index.html#services">Услуги</a>
+            <a href="index.html#projects">Проекты</a>
+            <a href="calculators.html" aria-current="page">Калькуляторы</a>
+            <a href="index.html#contacts">Контакты</a>
+          </nav>
+
+          <div class="header__actions">
+            <a class="button button--ghost" href="#map-calc">Открыть карту</a>
+            <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mobile-menu" aria-hidden="true">
+          <a href="index.html#about">О бюро</a>
+          <a href="index.html#services">Услуги</a>
+          <a href="index.html#projects">Проекты</a>
+          <a href="calculators.html">Калькуляторы</a>
+          <a href="index.html#contacts">Контакты</a>
+          <a class="button button--primary button--full" href="#map-calc">Открыть карту</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero section hero--compact" id="hero">
+          <div class="container hero__grid hero__grid--page">
+            <div class="hero__content reveal">
+              <p class="eyebrow">Инструменты</p>
+              <h1>Калькуляторы для быстрой оценки объекта и расчёта прямо на карте.</h1>
+              <p class="hero__lead">
+                Отдельная страница под оперативную смету и под рисование на Яндекс Карте.
+                Можно считать покрытия по площади, бордюры и ограждения по длине, а итог сразу
+                собирать в таблицу стоимости.
+              </p>
+              <div class="hero__actions">
+                <a class="button button--primary" href="#estimate">Открыть смету</a>
+                <a class="button button--secondary" href="#map-calc">Открыть карту</a>
+              </div>
+              <ul class="hero__points">
+                <li>Отдельная страница для заказчика и менеджера</li>
+                <li>Рисование фигур и линий</li>
+                <li>Подсчёт м², м.п и стоимости</li>
+              </ul>
+            </div>
+
+            <div class="hero__visual reveal reveal-delay">
+              <div class="hero-card hero-card--main">
+                <span class="hero-card__label">Что внутри</span>
+                <strong>Оперативная смета + карта с геометрией</strong>
+                <p>
+                  Сначала можно быстро прикинуть состав работ вручную, затем уточнить объёмы
+                  на карте и получить более точную стоимость по каждому элементу.
+                </p>
+              </div>
+              <div class="hero-card hero-card--stats hero-card--stats-3">
+                <div>
+                  <span>Покрытия</span>
+                  <strong>м²</strong>
+                </div>
+                <div>
+                  <span>Линейные элементы</span>
+                  <strong>м.п</strong>
+                </div>
+                <div>
+                  <span>Итог</span>
+                  <strong>₽</strong>
+                </div>
+              </div>
+              <div class="hero-grid hero-grid--single">
+                <article>
+                  <span>API</span>
+                  <h3>Яндекс Карта подключается по ключу</h3>
+                  <p>На странице есть поле для ключа. Это самый надёжный вариант для реальной работы.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--compact metrics">
+          <div class="container metrics__grid reveal">
+            <article>
+              <strong>Быстрая ручная оценка</strong>
+              <p>Собирай строками объёмы, цены и итог до детальной проработки участка.</p>
+            </article>
+            <article>
+              <strong>Уточнение на карте</strong>
+              <p>Рисуй покрытия и линейные элементы прямо по спутнику и считай стоимость.</p>
+            </article>
+            <article>
+              <strong>Подготовка к смете</strong>
+              <p>Итоги уже собраны в понятном виде и подходят для первичного коммерческого предложения.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="estimate">
+          <div class="container">
+            <div class="section-head reveal">
+              <p class="eyebrow">Калькулятор сметы</p>
+              <h2>Быстрая таблица для оперативного подсчёта работ.</h2>
+              <p>Добавляй строки, меняй единицы, объёмы и цену за единицу. Итог пересчитывается автоматически.</p>
+            </div>
+
+            <div class="estimate-shell reveal reveal-delay">
+              <div class="estimate-toolbar">
+                <div class="estimate-toolbar__group">
+                  <button class="button button--primary" type="button" id="estimate-add-row">Добавить строку</button>
+                  <button class="button button--secondary" type="button" id="estimate-add-preset">Добавить типовой набор</button>
+                </div>
+                <div class="estimate-total-box">
+                  <span>Итого по таблице</span>
+                  <strong id="estimate-grand-total">0 ₽</strong>
+                </div>
+              </div>
+
+              <div class="estimate-table-wrap">
+                <table class="estimate-table">
+                  <thead>
+                    <tr>
+                      <th>Наименование</th>
+                      <th>Кол-во</th>
+                      <th>Ед.</th>
+                      <th>Цена</th>
+                      <th>Сумма</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="estimate-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section section--muted" id="map-calc">
+          <div class="container">
+            <div class="section-head reveal">
+              <p class="eyebrow">Калькулятор на Яндекс Карте</p>
+              <h2>Рисование фигур и линий с подсчётом площади, длины и стоимости.</h2>
+              <p>
+                Подходит для покрытий, газонов, бордюров, ограждений и других элементов,
+                где нужно быстро оценить объём на участке по спутнику.
+              </p>
+            </div>
+
+            <div class="map-calc-grid">
+              <aside class="map-panel reveal">
+                <div class="panel-card">
+                  <h3>1. Подключение карты</h3>
+                  <label class="field">
+                    <span>API-ключ Яндекс Карт</span>
+                    <input id="ymaps-api-key" type="text" placeholder="Вставь API-ключ" />
+                  </label>
+                  <button class="button button--primary button--full" id="ymaps-connect" type="button">Подключить карту</button>
+                  <p class="panel-note">Ключ сохраняется только в браузере на этом устройстве.</p>
+                  <p class="map-status" id="map-status">Карта ещё не подключена.</p>
+                </div>
+
+                <div class="panel-card">
+                  <h3>2. Параметры нового элемента</h3>
+                  <label class="field">
+                    <span>Название</span>
+                    <input id="draw-name" type="text" value="Покрытие" />
+                  </label>
+                  <label class="field">
+                    <span>Тип</span>
+                    <select id="draw-kind">
+                      <option value="polygon">Площадной элемент — м²</option>
+                      <option value="polyline">Линейный элемент — м.п</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>Ставка, ₽ за единицу</span>
+                    <input id="draw-rate" type="number" min="0" step="1" value="2500" />
+                  </label>
+                  <label class="field">
+                    <span>Коэффициент</span>
+                    <input id="draw-factor" type="number" min="0" step="0.01" value="1" />
+                  </label>
+                  <div class="map-panel__actions">
+                    <button class="button button--primary button--full" id="draw-figure" type="button">Нарисовать новый элемент</button>
+                    <button class="button button--secondary button--full" id="clear-map" type="button">Очистить карту</button>
+                  </div>
+                </div>
+
+                <div class="panel-card">
+                  <h3>3. Итоги</h3>
+                  <div class="summary-list">
+                    <div>
+                      <span>Элементов на карте</span>
+                      <strong id="map-items-count">0</strong>
+                    </div>
+                    <div>
+                      <span>Общая стоимость</span>
+                      <strong id="map-grand-total">0 ₽</strong>
+                    </div>
+                  </div>
+                  <p class="panel-note">Для точной сметы лучше переносить итог в рабочую таблицу и проверять решения по проекту.</p>
+                </div>
+              </aside>
+
+              <div class="map-workspace reveal reveal-delay">
+                <div id="yandex-map" class="map-canvas">
+                  <div class="map-placeholder" id="map-placeholder">
+                    <strong>Карта появится после подключения API-ключа.</strong>
+                    <span>После запуска нажми «Нарисовать новый элемент», чтобы добавить фигуру или линию.</span>
+                  </div>
+                </div>
+                <div class="map-results" id="map-results"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer__inner">
+          <div>
+            <strong>Умело</strong>
+            <p>Архитектурно-строительное бюро. Проектирование территорий, инженерная логика и сопровождение реализации.</p>
+          </div>
+          <div class="footer__links">
+            <a href="index.html#about">О бюро</a>
+            <a href="index.html#services">Услуги</a>
+            <a href="index.html#projects">Проекты</a>
+            <a href="calculators.html">Калькуляторы</a>
+            <a href="index.html#contacts">Контакты</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="calculators.js"></script>
+  </body>
+</html>
