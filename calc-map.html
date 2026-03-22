@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Калькулятор благоустройства на карте от Умело: большая карта, поиск по адресу, рисование контуров, DXF и смета."
+    />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Калькулятор на карте — Умело</title>
+        <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  </head>
+  <body class="map-shell-body">
+    <main class="map-workbench" id="map-workbench">
+      <div id="map-canvas" class="map-workbench__canvas" aria-label="Интерактивная карта"></div>
+
+      <header class="map-topbar" id="map-topbar">
+        <div class="map-topbar__brand map-topbar__brand--navonly">
+          <nav class="map-topbar__nav" aria-label="Основная навигация">
+            <a href="index.html">Главная</a>
+            <a href="calculators.html">Калькуляторы</a>
+            <a href="calc-estimate.html">Быстрая смета</a>
+          </nav>
+        </div>
+
+        <div class="map-topbar__actions map-topbar__actions--empty" aria-hidden="true"></div>
+      </header>
+
+      <section class="map-toolstrip" id="map-toolstrip" aria-label="Панель инструментов карты">
+        <div class="map-toolstrip__row">
+          <div class="map-toolstrip__meta">
+            <label class="map-inline-control map-inline-control--worktype">
+              <span>Тип</span>
+              <select id="map-active-worktype-select" aria-label="Активный тип работ"></select>
+            </label>
+            <label class="map-inline-control map-inline-control--rate">
+              <span>Ставка</span>
+              <input id="map-active-worktype-rate" type="number" min="0" step="1" aria-label="Ставка активного типа работ" />
+            </label>
+            <div class="map-inline-control map-inline-control--search">
+              <span>Адрес</span>
+              <div class="map-search-inline">
+                <input id="map-search-input" type="text" placeholder="Адрес или ориентир" />
+                <button class="button button--primary button--small" id="map-search-button" type="button">Найти</button>
+              </div>
+              <div class="map-search-flyout">
+                <div id="map-search-results" class="search-results search-results--compact"></div>
+                <p class="hint-text hint-text--compact" id="map-search-status"></p>
+              </div>
+            </div>
+            <span class="map-mini-badge"><strong id="map-summary-count">0</strong> эл.</span>
+            <span class="map-mini-badge"><strong id="map-summary-total">0 ₽</strong></span>
+          </div>
+
+          <div class="map-toolbar map-toolbar--strip" id="map-toolbar">
+            <button class="map-tool-button" type="button" data-draw="polygon">Полигон</button>
+            <button class="map-tool-button" type="button" data-draw="rectangle">Прямоугольник</button>
+            <button class="map-tool-button" type="button" data-draw="polyline">Линия</button>
+            <button class="map-tool-button" type="button" data-draw="marker">Точка</button>
+            <button class="map-tool-button map-tool-button--ghost" type="button" id="map-tool-edit">Ред.</button>
+            <button class="map-tool-button map-tool-button--ghost" type="button" id="map-tool-delete-mode">Удаление</button>
+            <button class="map-tool-button map-tool-button--ghost" type="button" id="map-tool-stop">Стоп</button>
+          </div>
+
+          <span class="map-mini-badge map-mini-badge--maptype" id="map-basemap-label">Карта: спутник</span>
+          <div id="map-mode-status" class="map-mode-status map-mode-status--strip">Режим ожидания.</div>
+        </div>
+      </section>
+
+      <button class="map-edge-toggle map-edge-toggle--left" type="button" data-drawer-toggle="left" aria-controls="map-left-drawer" aria-expanded="true">
+        Слои
+      </button>
+      <aside class="map-drawer map-drawer--left is-open" id="map-left-drawer" aria-label="Слои карты">
+        <div class="map-drawer__header">
+          <div>
+            <p class="eyebrow">Слои</p>
+            <h2>Подложки и отображение</h2>
+          </div>
+          <button class="map-drawer__close" type="button" data-drawer-toggle="left" aria-label="Свернуть левую панель">×</button>
+        </div>
+
+        <div class="map-drawer__body map-drawer__body--layers">
+          <div class="map-ui-card map-ui-card--compact">
+            <div class="map-ui-card__head">
+              <div>
+                <p class="eyebrow">Подложка</p>
+                <h3>Базовая карта</h3>
+              </div>
+            </div>
+            <div class="basemap-switch" id="map-basemap-switch">
+              <label class="basemap-option is-active" data-basemap-option>
+                <input type="radio" name="map-basemap" value="satellite" checked />
+                <span>Спутник</span>
+              </label>
+              <label class="basemap-option" data-basemap-option>
+                <input type="radio" name="map-basemap" value="scheme" />
+                <span>Схема</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="map-ui-card map-ui-card--compact">
+            <div class="map-ui-card__head">
+              <div>
+                <p class="eyebrow">Отображение</p>
+                <h3>Публичные слои</h3>
+              </div>
+            </div>
+            <div class="map-layer-controls">
+              <label class="map-layer-toggle">
+                <input id="toggle-cadastral-borders" type="checkbox" />
+                <span>Границы кадастровых объектов</span>
+              </label>
+              <label class="map-layer-toggle">
+                <input id="toggle-cadastral-parcels" type="checkbox" />
+                <span>Земельные участки / объекты ЕГРН</span>
+              </label>
+            </div>
+            <p class="hint-text hint-text--compact">Включай публичные слои только когда они нужны. Они могут подгружаться медленно.</p>
+          </div>
+        </div>
+      </aside>
+
+      <button class="map-edge-toggle map-edge-toggle--right" type="button" data-drawer-toggle="right" aria-controls="map-right-drawer" aria-expanded="true">
+        Смета
+      </button>
+
+      <aside class="map-drawer map-drawer--right is-open" id="map-right-drawer" aria-label="Смета">
+        <div class="map-drawer__header">
+          <div>
+            <p class="eyebrow">Смета</p>
+            <h2>Смета и позиции</h2>
+          </div>
+          <div class="map-drawer__header-actions">
+            <button class="button button--ghost button--small" id="map-open-export-modal" type="button">Экспорт</button>
+            <button class="map-drawer__close" type="button" data-drawer-toggle="right" aria-label="Свернуть правую панель">×</button>
+          </div>
+        </div>
+
+        <div class="map-drawer__body map-drawer__body--estimate">
+          <div class="map-ui-card map-ui-card--compact map-ui-card--summary-sticky">
+            <div class="summary-grid summary-grid--v2 summary-grid--compact">
+              <article>
+                <span>Элементов</span>
+                <strong id="summary-card-count">0</strong>
+              </article>
+              <article>
+                <span>Сумма</span>
+                <strong id="summary-card-total">0 ₽</strong>
+              </article>
+            </div>
+          </div>
+
+          <div class="map-ui-card map-ui-card--list map-ui-card--compact map-ui-card--estimate-fill">
+            <div class="map-ui-card__head map-ui-card__head--between">
+              <div>
+                <p class="eyebrow">Позиции</p>
+                <h3>Контуры и позиции</h3>
+              </div>
+            </div>
+            <div id="map-layer-list" class="map-item-list map-item-list--estimate"></div>
+          </div>
+        </div>
+      </aside>
+
+      <div class="map-modal" id="map-export-modal" hidden>
+        <div class="map-modal__backdrop" data-modal-close="export"></div>
+        <div class="map-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="map-export-modal-title">
+          <div class="map-modal__header">
+            <div>
+              <p class="eyebrow">Файлы</p>
+              <h2 id="map-export-modal-title">Экспорт и сохранение</h2>
+            </div>
+            <button class="map-drawer__close" type="button" data-modal-close="export" aria-label="Закрыть окно экспорта">×</button>
+          </div>
+          <div class="map-modal__body">
+            <div class="estimate-actions estimate-actions--stack estimate-actions--compact map-export-actions">
+              <button class="button button--primary button--full" id="map-export-csv" type="button">Экспорт CSV</button>
+              <button class="button button--secondary button--full" id="map-export-dxf" type="button">Скачать DXF</button>
+              <button class="button button--ghost button--full" id="map-save-project" type="button">Сохранить JSON</button>
+              <label class="button button--ghost button--full upload-button">
+                Загрузить JSON
+                <input id="map-load-project" type="file" accept="application/json" hidden />
+              </label>
+              <button class="button button--ghost button--full" id="map-clear-project" type="button">Очистить карту</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/esri-leaflet@3.0.12/dist/esri-leaflet.js"></script>
+    <script src="map-calc.js"></script>
+  </body>
+</html>

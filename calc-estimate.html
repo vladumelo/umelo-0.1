@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Быстрый калькулятор сметы по благоустройству от Умело." />
+    <meta name="theme-color" content="#0f172a" />
+    <title>Быстрая смета — Умело</title>
+        <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="site-shell site-shell--subpage">
+      <header class="header" id="top">
+        <div class="container header__inner header__inner--navonly">
+          <div class="header__spacer" aria-hidden="true"></div>
+
+          <nav class="nav" aria-label="Основная навигация">
+            <a href="index.html">Главная</a>
+            <a href="calculators.html">Калькуляторы</a>
+            <a href="calc-estimate.html">Быстрая смета</a>
+            <a href="calc-map.html">Карта</a>
+          </nav>
+
+          <div class="header__actions">
+            <a class="button button--ghost" href="calc-map.html">Карта</a>
+            <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mobile-menu" aria-hidden="true">
+          <a href="index.html">Главная</a>
+          <a href="calculators.html">Калькуляторы</a>
+          <a href="calc-map.html">Калькулятор на карте</a>
+        </div>
+      </header>
+
+      <main>
+        <section class="subhero section section--compact">
+          <div class="container subhero__content reveal">
+            <p class="eyebrow">Калькулятор 01</p>
+            <h1>Быстрая смета по благоустройству.</h1>
+            <p>
+              Для предварительного расчёта без карты. Меняй объёмы, единицы и ставки. Подходит для
+              первой оценки проекта или разговора с заказчиком.
+            </p>
+          </div>
+        </section>
+
+        <section class="section section--compact">
+          <div class="container estimate-layout">
+            <aside class="estimate-sidebar reveal">
+              <h2>Как использовать</h2>
+              <ol class="side-steps">
+                <li>Проверь базовые строки.</li>
+                <li>Измени объём и ставку.</li>
+                <li>Добавь свои работы.</li>
+                <li>Экспортируй CSV или копируй итог.</li>
+              </ol>
+
+              <div class="summary-card">
+                <span>Итог по смете</span>
+                <strong id="estimate-grand-total">0 ₽</strong>
+                <small id="estimate-grand-meta">0 строк</small>
+              </div>
+
+              <div class="estimate-actions estimate-actions--stack">
+                <button class="button button--primary button--full" id="estimate-add-row" type="button">Добавить строку</button>
+                <button class="button button--secondary button--full" id="estimate-export" type="button">Экспорт CSV</button>
+                <button class="button button--ghost button--full" id="estimate-reset" type="button">Сбросить к шаблону</button>
+              </div>
+            </aside>
+
+            <section class="estimate-main reveal reveal-delay">
+              <div class="table-card">
+                <div class="table-card__head">
+                  <div>
+                    <p class="eyebrow">Таблица расчёта</p>
+                    <h2>Работы и объёмы</h2>
+                  </div>
+                </div>
+
+                <div class="estimate-table-wrap">
+                  <table class="estimate-table" id="estimate-table">
+                    <thead>
+                      <tr>
+                        <th>Наименование</th>
+                        <th>Ед.</th>
+                        <th>Объём</th>
+                        <th>Ставка</th>
+                        <th>Сумма</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="container footer__inner">
+          <div>
+            <strong>Умело</strong>
+            <p>Быстрая смета для первичной оценки работ.</p>
+          </div>
+          <div class="footer__links">
+            <a href="calculators.html">Все калькуляторы</a>
+            <a href="calc-map.html">Карта</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="calculators.js"></script>
+  </body>
+</html>

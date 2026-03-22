@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Калькуляторы Умело: быстрая смета и калькулятор благоустройства на карте." />
+    <meta name="theme-color" content="#efefef" />
+    <title>Калькуляторы — Умело</title>
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body class="home-page calculators-page">
+    <header class="fs-header" id="top">
+      <div class="fs-shell fs-header__inner fs-header__inner--navonly">
+        <div class="fs-header__spacer" aria-hidden="true"></div>
+
+        <nav class="fs-nav" aria-label="Навигация по сайту">
+          <a href="index.html#top">Главная</a>
+          <a href="index.html#projects">Проекты</a>
+          <a href="index.html#competencies">Компетенции</a>
+          <a href="index.html#blog">Блог</a>
+          <a href="index.html#contacts">Контакты</a>
+        </nav>
+
+        <div class="fs-actions">
+          <a class="fs-button fs-button--ghost" href="index.html">На главную</a>
+          <button class="fs-burger" type="button" aria-label="Открыть меню" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="fs-mobile" aria-hidden="true">
+        <a href="index.html#top">Главная</a>
+        <a href="index.html#projects">Проекты</a>
+        <a href="index.html#competencies">Компетенции</a>
+        <a href="index.html#blog">Блог</a>
+        <a href="index.html#contacts">Контакты</a>
+        <a class="fs-button fs-button--ghost fs-button--full" href="index.html">На главную</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="fs-tools-hero">
+        <div class="fs-shell fs-tools-hero__inner fs-reveal is-visible">
+          <h1>Инструменты для быстрого старта проекта.</h1>
+          <p>Открывай нужный сценарий и переходи сразу к расчёту.</p>
+        </div>
+      </section>
+
+      <section class="fs-tools-section">
+        <div class="fs-shell">
+          <div class="fs-tools-grid">
+            <a class="fs-tool-card fs-tool-card--link fs-reveal is-visible" href="calc-estimate.html">
+              <h2>Быстрая смета</h2>
+              <p>Объёмы, ставки, свои строки и итог по смете.</p>
+            </a>
+
+            <a class="fs-tool-card fs-tool-card--link fs-reveal is-visible fs-reveal--delay" href="calc-map.html">
+              <h2>Калькулятор на карте</h2>
+              <p>Рисуешь контуры на карте и сразу получаешь стоимость.</p>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="home.js"></script>
+  </body>
+</html>
