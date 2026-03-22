@@ -121,26 +121,26 @@
   };
 
   const overlays = {};
-  if (L.esri && typeof L.esri.dynamicMapLayer === 'function') {
-    overlays.borders = L.esri.dynamicMapLayer({
-      url: 'https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/BordersGKN/MapServer',
-      opacity: 0.82,
-      position: 'front',
-      useCors: true,
-    });
+  const handleOverlayLoad = () => setStatus('Публичный кадастровый слой загружен.');
+  const handleOverlayError = () => setStatus('Публичный кадастровый слой временно недоступен. Базовая карта и расчёты продолжают работать.');
 
+  overlays.borders = L.tileLayer('https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/CadastreObjects/MapServer/tile/{z}/{y}/{x}', {
+    opacity: 0.9,
+    maxZoom: 22,
+    attribution: '© Росреестр (ПКК)',
+  });
+  overlays.borders.on('load', handleOverlayLoad);
+  overlays.borders.on('tileerror', handleOverlayError);
+
+  if (L.esri && typeof L.esri.dynamicMapLayer === 'function') {
     overlays.parcels = L.esri.dynamicMapLayer({
       url: 'https://pkk.rosreestr.ru/arcgis/rest/services/PKK6/CadastreObjects/MapServer',
-      opacity: 0.6,
+      opacity: 0.55,
       position: 'front',
       useCors: true,
     });
 
-    const handleOverlayLoad = () => setStatus('Публичный кадастровый слой загружен.');
-    const handleOverlayError = () => setStatus('Публичный кадастровый слой временно недоступен. Базовая карта и расчёты продолжают работать.');
-    overlays.borders.on('load', handleOverlayLoad);
     overlays.parcels.on('load', handleOverlayLoad);
-    overlays.borders.on('error', handleOverlayError);
     overlays.parcels.on('error', handleOverlayError);
   }
 
